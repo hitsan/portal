@@ -1,11 +1,14 @@
 #!/bin/bash
 
-cd ..
-R_HOME=`pwd`
+#cd ..
+
+docker volume create --name modules
 
 docker run \
   --name react \
   -d \
-  -v  $R_HOME/tut:/work \
+  --mount type=bind,source="$(pwd)",target=/portal \
   -p 9000:8080 \
-  -it node:lts-alpine3.14 \
+  -it node:lts-alpine3.14
+ 
+#  --mount source=modules,target=/portal/node_modules \
